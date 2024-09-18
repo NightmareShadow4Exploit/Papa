@@ -3,21 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Islamic-Themed Excel Viewer</title>
+    <title>Student Data Viewer</title>
     <link rel="stylesheet" href="styles.css">
     <link id="themeStylesheet" rel="stylesheet" href="light-theme.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 <body>
     <header>
         <h1>Student Data Viewer</h1>
     </header>
 
-    <section class="file-section">
-        <h2>Available Excel Files</h2>
-        <ul class="file-list" id="fileList">
-            <!-- File links will be dynamically inserted here -->
-        </ul>
-    </section>
+    <!-- Button to show file list popup -->
+    <button id="folderIcon" class="folder-btn">
+        <i class="fas fa-folder"></i> <!-- Font Awesome icon -->
+        View Files
+    </button>
+
+    <!-- Pop-up container for files -->
+    <div id="popup" class="popup hidden">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h2>Files List</h2>
+            <button id="toggleFiles">View Excel Files</button>
+            <button id="togglePdfs">View PDF Files</button>
+            <ul id="fileList" class="file-list hidden"></ul> <!-- List of Excel files -->
+            <ul id="pdfList" class="file-list hidden"></ul> <!-- List of PDF files -->
+        </div>
+    </div>
 
     <section class="table-section">
         <h2>File Content</h2>
@@ -26,18 +38,19 @@
             <tbody id="tableBody"></tbody>
         </table>
     </section>
+    
     <div id="themeSwitcherContainer">
         <button id="themeSwitcher" aria-label="Switch Theme">
-            <!-- <svg id="sunIcon" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4.5c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5zm0-2C5.925 2.5 2 6.425 2 11.5S5.925 20.5 12 20.5 22 16.575 22 11.5 18.075 2.5 12 2.5z"/></svg> -->
-            <svg id="moonIcon" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a8.01 8.01 0 0 0-8 8c0 4.418 3.582 8 8 8 1.74 0 3.351-.62 4.674-1.67C15.587 17.65 13.89 18.5 12 18.5 7.029 18.5 3 14.471 3 10 3 6.546 5.046 3.447 8.327 2.446 6.698 3.458 5.282 5.44 5.282 7.757 5.282 10.459 7.891 12.558 11 12.558 13.348 12.558 15.583 11.559 17.356 9.922 18.3 8.831 16.095 6.606 16.553 5.497 16.713 4.739 17.171 3.942 17.833 3.451 18.828 2.346 18.77 1.472 17.978 1.02 17.626 2.284 17.7 3.475 18.397 4.936 18.146 6.379 17.604 7.761 16.918 8.29 15.78 8.028 14.603 7.871 13.1 7.46 11.8 7.046 10.472 7.196 9.121 7.532 7.8 8.307 6.452 8.93 5.12 9.433 3.842 9.614 2.733 9.5 1.5 9.5 1.5 8.379 1.587 7.559 2.629 7.265 3.715 7.05 4.566 7.629 5.8 8.733 6.564 9.548 7.23 10.575 7.918 11.72 8.398 12.835 8.629 13.798 9.136 14.445 10.114 15.356 11.016 15.741 12.269 15.809 13.405 16.545 14.54 17.735 15.761 18.808 17.303 19.723 19.355 20.255 21.565 20.256 23 20 24c-1.708 0-3.409-.787-4.585-1.977A7.998 7.998 0 0 0 12 2z"/></svg>
+            <svg id="moonIcon" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 2a8.01 8.01 0 0 0-8 8c0 4.418 3.582 8 8 8 1.74 0 3.351-.62 4.674-1.67C15.587 17.65 13.89 18.5 12 18.5 7.029 18.5 3 14.471 3 10 3 6.546 5.046 3.447 8.327 2.446 6.698 3.458 5.282 5.44 5.282 7.757 5.282 10.459 7.891 12.558 11 12.558 13.348 12.558 15.583 11.559 17.356 9.922 18.3 8.831 16.095 6.606 16.553 5.497 16.713 4.739 17.171 3.942 17.833 3.451 18.828 2.346 18.77 1.472 17.978 1.02 17.626 2.284 17.7 3.475 18.397 4.936 18.146 6.379 17.604 7.761 16.918 8.29 15.78 8.028 14.603 7.871 13.1 7.46 11.8 7.046 10.472 7.196 9.121 7.532 7.8 8.307 6.452 8.93 5.12 9.433 3.842 9.614 2.733 9.5 1.5 9.5 1.5 8.379 1.587 7.559 2.629 7.265 3.715 7.05 4.566 7.629 5.8 8.733 6.564 9.548 7.23 10.575 7.918 11.72 8.398 12.835 8.629 13.798 9.136 14.445 10.114 15.356 11.016 15.741 12.269 15.809 13.405 16.545 14.54 17.735 15.761 18.808 17.303 19.723 19.355 20.255 21.565 20.256 23 20 24c-1.708 0-3.409-.787-4.585-1.977A7.998 7.998 0 0 0 12 2z"/>
+            </svg>
         </button>
     </div>
-    
-    
 
     <!-- Include xlsx library via CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="scripts.js"></script>
+    <script src="pdf.script.js"></script>
     <script src="switch.js"></script>
 </body>
 </html>
