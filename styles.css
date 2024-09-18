@@ -1,0 +1,142 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600&display=swap');
+
+/* General Page Styling */
+body {
+    font-family: 'Tajawal', sans-serif;
+    background: #f0f4f9;
+    color: #2f4f4f;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Header Styling */
+header {
+    background-color: #004d40; /* Islamic green */
+    padding: 20px;
+    color: white;
+    border-bottom: 5px solid #d4af37; /* Gold border */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 36px;
+    letter-spacing: 2px;
+}
+
+/* File List Section */
+.file-section {
+    margin: 40px 0;
+}
+
+.file-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+}
+
+.file-list li {
+    background: linear-gradient(135deg, #fff, #f0f4f9); /* Light background with gradient */
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #004d40;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.file-list li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.file-list li a {
+    color: #004d40;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.file-list li a:hover {
+    color: #d4af37; /* Gold on hover */
+}
+
+/* Table Section */
+.table-section {
+    margin: 40px 0;
+}
+
+table {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+thead th {
+    background-color: #004d40; /* Islamic green */
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
+    background-color: #ecf0f1;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+td, th {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    text-align: left;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .file-list {
+        grid-template-columns: 1fr;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+
+    table tr {
+        margin-bottom: 10px;
+    }
+
+    table td, table th {
+        text-align: right;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    table td::before, table th::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        font-weight: bold;
+    }
+}

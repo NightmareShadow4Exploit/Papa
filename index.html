@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Islamic-Themed Excel Viewer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Student Data Viewer</h1>
+    </header>
+
+    <section class="file-section">
+        <h2>Available Excel Files</h2>
+        <ul class="file-list" id="fileList">
+            <!-- File links will be dynamically inserted here -->
+        </ul>
+    </section>
+
+    <section class="table-section">
+        <h2>File Content</h2>
+        <table id="excelTable">
+            <thead id="tableHeader"></thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </section>
+
+    <!-- Include xlsx library via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>
