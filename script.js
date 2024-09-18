@@ -1,10 +1,10 @@
 // GitHub Pages URL for the repository
-const baseUrl = 'https://username.github.io/NigtmareShadow4Exploit/Papa';
+const baseUrl = 'https://NightmareShadow4Exploit.github.io/Papa/files/';
 
 // List of file URLs
 const fileUrls = [
-    { name: 'MOM.xlsx', url: `${baseUrl}files/MOM.xlsx` },
-    { name: 'PlanningVsAchievement-2024_Updated on 16 Aug 2024.xlsx', url: `${baseUrl}files/PlanningVsAchievement-2024_Updated on 16 Aug 2024.xlsx`}
+    { name: 'MOM.xlsx', url: `${baseUrl}MOM.xlsx` },
+    { name: 'PlanningVsAchievement-2024_Updated on 16 Aug 2024.xlsx', url: `${baseUrl}PlanningVsAchievement-2024_Updated on 16 Aug 2024.xlsx` }
 ];
 
 const fileList = document.getElementById('fileList');
@@ -21,8 +21,14 @@ fileUrls.forEach(file => {
 });
 
 function loadFile(url) {
+    console.log('Attempting to load file from URL:', url);
     fetch(url)
-        .then(response => response.arrayBuffer())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.arrayBuffer();
+        })
         .then(data => {
             const workbook = XLSX.read(data, { type: 'array' });
             const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
