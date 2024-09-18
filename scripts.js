@@ -3,8 +3,9 @@ const baseUrl = 'https://NightmareShadow4Exploit.github.io/Papa/files/';
 const repoApiUrl = 'https://api.github.com/repos/NightmareShadow4Exploit/Papa/contents/files';
 const pdfRepoApiUrl = 'https://api.github.com/repos/NightmareShadow4Exploit/Papa/contents/pdf';
 
-// Fetch the list of files from the GitHub repository
+// Function to load Excel files
 function loadExcelFiles() {
+    console.log('Fetching Excel files from:', repoApiUrl); // Log the API URL
     fetch(repoApiUrl)
         .then(response => {
             if (!response.ok) {
@@ -13,7 +14,8 @@ function loadExcelFiles() {
             return response.json();
         })
         .then(data => {
-            const fileList = document.getElementById('fileList');
+            console.log('Excel files data:', data); // Log the response data
+            const fileList = document.getElementById('excelFileList');
             fileList.innerHTML = ''; // Clear previous file list
             data.forEach(file => {
                 if (file.type === 'file' && file.name.endsWith('.xlsx')) {
@@ -39,11 +41,12 @@ function loadExcelFiles() {
                 }
             });
         })
-        .catch(error => console.error('Error fetching file list:', error));
+        .catch(error => console.error('Error fetching Excel files:', error));
 }
 
-// Fetch the list of PDF files from the GitHub repository
+// Function to load PDF files
 function loadPdfFiles() {
+    console.log('Fetching PDF files from:', pdfRepoApiUrl); // Log the API URL
     fetch(pdfRepoApiUrl)
         .then(response => {
             if (!response.ok) {
@@ -52,7 +55,8 @@ function loadPdfFiles() {
             return response.json();
         })
         .then(data => {
-            const pdfList = document.getElementById('pdfList');
+            console.log('PDF files data:', data); // Log the response data
+            const pdfList = document.getElementById('pdfFileList');
             pdfList.innerHTML = ''; // Clear previous PDF list
             data.forEach(file => {
                 if (file.type === 'file' && file.name.endsWith('.pdf')) {
@@ -69,9 +73,10 @@ function loadPdfFiles() {
                 }
             });
         })
-        .catch(error => console.error('Error fetching PDF list:', error));
+        .catch(error => console.error('Error fetching PDF files:', error));
 }
 
+// Function to load Excel file and display table
 function loadFile(url) {
     console.log('Attempting to load file from URL:', url);
     fetch(url)
@@ -90,6 +95,7 @@ function loadFile(url) {
         .catch(error => console.error('Error loading file:', error));
 }
 
+// Function to display data in table
 function displayTable(data) {
     const tableHeader = document.getElementById('tableHeader');
     const tableBody = document.getElementById('tableBody');
@@ -119,43 +125,47 @@ function displayTable(data) {
 }
 
 // Get the elements
-const folderIcon = document.getElementById('folderIcon');
-const popup = document.getElementById('popup');
-const closeBtn = document.querySelector('.close-btn');
-const fileToggleBtn = document.getElementById('toggleFiles');
-const pdfToggleBtn = document.getElementById('togglePdfs');
-const fileList = document.getElementById('fileList');
-const pdfList = document.getElementById('pdfList');
+const excelBtn = document.getElementById('excelBtn');
+const pdfBtn = document.getElementById('pdfBtn');
+const excelPopup = document.getElementById('excelPopup');
+const pdfPopup = document.getElementById('pdfPopup');
+const closeExcelBtn = document.querySelector('#excelPopup .close-btn');
+const closePdfBtn = document.querySelector('#pdfPopup .close-btn');
 
-// Show the pop-up when the folder icon is clicked
-folderIcon.addEventListener('click', () => {
-    popup.classList.remove('hidden');
-});
-
-// Show the pop-up and load Excel files when the "View Excel Files" button is clicked
-fileToggleBtn.addEventListener('click', () => {
-    fileList.classList.remove('hidden');
-    pdfList.classList.add('hidden');
-    popup.classList.remove('hidden');
+// Show the Excel files pop-up
+excelBtn.addEventListener('click', () => {
+    console.log('Showing Excel files pop-up');
+    excelPopup.classList.remove('hidden');
     loadExcelFiles(); // Function to populate Excel files
 });
 
-// Show the pop-up and load PDF files when the "View PDF Files" button is clicked
-pdfToggleBtn.addEventListener('click', () => {
-    fileList.classList.add('hidden');
-    pdfList.classList.remove('hidden');
-    popup.classList.remove('hidden');
+// Show the PDF files pop-up
+pdfBtn.addEventListener('click', () => {
+    console.log('Showing PDF files pop-up');
+    pdfPopup.classList.remove('hidden');
     loadPdfFiles(); // Function to populate PDF files
 });
 
-// Close the pop-up when the close button is clicked
-closeBtn.addEventListener('click', () => {
-    popup.classList.add('hidden');
+// Close the Excel files pop-up when the close button is clicked
+closeExcelBtn.addEventListener('click', () => {
+    console.log('Closing Excel pop-up');
+    excelPopup.classList.add('hidden');
+});
+
+// Close the PDF files pop-up when the close button is clicked
+closePdfBtn.addEventListener('click', () => {
+    console.log('Closing PDF pop-up');
+    pdfPopup.classList.add('hidden');
 });
 
 // Close the pop-up when clicking outside the content area
 window.addEventListener('click', (event) => {
-    if (event.target === popup) {
-        popup.classList.add('hidden');
+    if (event.target === excelPopup) {
+        console.log('Clicked outside Excel pop-up');
+        excelPopup.classList.add('hidden');
+    }
+    if (event.target === pdfPopup) {
+        console.log('Clicked outside PDF pop-up');
+        pdfPopup.classList.add('hidden');
     }
 });
