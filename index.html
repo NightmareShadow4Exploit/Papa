@@ -8,19 +8,7 @@
     <link id="themeStylesheet" rel="stylesheet" href="light-theme.css">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.2.146/pdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.2.146/pdf.worker.min.js"></script>
-
-    <style>
-        #pdf-container {
-            border: 1px solid #ddd;
-            margin: 10px 0;
-        }
-        #pdf-container canvas {
-            width: 100%;
-            border: 1px solid #ddd;
-            margin-bottom: 10px;
-        }
-    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.2.146/pdf.worker.min.js"></script>
 </head>
 <body>
     <header>
@@ -40,7 +28,7 @@
         <div class="popup-content">
             <span class="close-btn" data-popup="excelPopup">&times;</span>
             <h2>Excel Files List</h2>
-            <ul id="excelFileList" class="file-list"></ul> <!-- Corrected ID -->
+            <ul id="excelFileList" class="file-list"></ul>
         </div>
     </div>
 
@@ -49,7 +37,9 @@
         <div class="popup-content">
             <span class="close-btn" data-popup="pdfPopup">&times;</span>
             <h2>PDF Files List</h2>
-            <ul id="pdfFileList" class="file-list"></ul> <!-- Correct ID -->
+            <div id="pdf-viewer">
+                <!-- PDF content will be rendered here -->
+            </div>
         </div>
     </div>
 
@@ -59,10 +49,6 @@
             <thead id="tableHeader"></thead>
             <tbody id="tableBody"></tbody>
         </table>
-    </section>
-
-    <section id="pdf-container">
-        <!-- PDF content will be loaded here -->
     </section>
 
     <div id="themeSwitcherContainer">
@@ -76,41 +62,6 @@
     <!-- Include xlsx library via CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="scripts.js"></script>
-    <script src="pdf.script.js"></script>
     <script src="switch.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.2.146/pdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.2.146/pdf.worker.min.js"></script>
-    
-    <script>
-        // Function to render the PDF
-        function renderPDF(url, canvasContainer) {
-            pdfjsLib.getDocument(url).promise.then(function(pdf) {
-                pdf.getPage(1).then(function(page) {
-                    var scale = 1.5;
-                    var viewport = page.getViewport({ scale: scale });
-                    var canvas = document.createElement('canvas');
-                    var context = canvas.getContext('2d');
-                    canvas.width = viewport.width;
-                    canvas.height = viewport.height;
-                    canvasContainer.appendChild(canvas);
-
-                    var renderContext = {
-                        canvasContext: context,
-                        viewport: viewport
-                    };
-                    page.render(renderContext);
-                });
-            }).catch(function(error) {
-                console.error('Error fetching or rendering PDF:', error);
-            });
-        }
-
-        // Load the PDF document when the page is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            var pdfUrl = 'path/to/your/pdf-file.pdf'; // Replace with your PDF file path
-            var container = document.getElementById('pdf-container');
-            renderPDF(pdfUrl, container);
-        });
-    </script>
 </body>
 </html>

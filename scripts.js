@@ -64,9 +64,13 @@ function loadPdfFiles() {
 
                     // Create the PDF link
                     const pdfLink = document.createElement('a');
-                    pdfLink.href = file.download_url;
+                    pdfLink.href = '#';
                     pdfLink.textContent = file.name;
-                    pdfLink.target = '_blank'; // Open in a new tab
+                    pdfLink.classList.add('pdf-link');
+                    pdfLink.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        renderPDF(file.download_url);
+                    });
 
                     listItem.appendChild(pdfLink);
                     pdfList.appendChild(listItem);
@@ -122,6 +126,41 @@ function displayTable(data) {
         });
         tableBody.appendChild(row);
     });
+}
+
+// Function to render PDF within the page
+function renderPDF(url) {
+    const pdfContainer = document.getElementById('pdf-container');
+    pdfContainer.innerHTML = ''; // Clear previous PDF
+
+    // Load and render the PDF
+    pdfjsLib.getDocument(url).promise.then(pdf => {
+        console.log('PDF loaded');
+        const numPages = pdf.numPages;
+        for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+            pdf.getPage(pageNum).then(page => {
+                console.log('Page loaded');
+                const scale = 1.5;
+                const viewport = page.getViewport({ scale: scale });
+
+                // Create canvas and context
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+                pdfContainer.appendChild(canvas);
+
+                // Render the page
+                const renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                page.render(renderContext).promise.then(() => {
+                    console.log('Page rendered');
+                });
+            });
+        }
+    }).catch(error => console.error('Error fetching or rendering PDF:', error));
 }
 
 // Get the elements
