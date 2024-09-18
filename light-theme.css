@@ -1,14 +1,12 @@
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600&display=swap');
-
 /* General Page Styling */
 body {
     font-family: 'Tajawal', sans-serif;
-    background: #f0f4f9;
-    color: #2f4f4f;
+    background-color: #f0f4f9; /* Light background for light mode */
+    color: #2f4f4f; /* Dark text color for readability */
     margin: 0;
     padding: 20px;
     text-align: center;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 /* Header Styling */
@@ -42,7 +40,7 @@ header h1 {
     background: linear-gradient(135deg, #fff, #f0f4f9); /* Light background with gradient */
     padding: 15px;
     border-radius: 10px;
-    border: 2px solid #004d40;
+    border: 2px solid #004d40; /* Islamic green border */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
@@ -54,7 +52,7 @@ header h1 {
 }
 
 .file-list li a {
-    color: #004d40;
+    color: #004d40; /* Islamic green for links */
     text-decoration: none;
     font-size: 20px;
     font-weight: bold;
@@ -94,11 +92,11 @@ tbody tr {
 }
 
 tbody tr:hover {
-    background-color: #ecf0f1;
+    background-color: #ecf0f1; /* Light grey for hover */
 }
 
 tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #f9f9f9; /* Light grey for alternate rows */
 }
 
 td, th {
@@ -141,7 +139,6 @@ td, th {
     }
 }
 
-/* Theme Switcher Container */
 #themeSwitcherContainer {
     position: fixed;
     bottom: 20px;
@@ -150,45 +147,24 @@ td, th {
 }
 
 #themeSwitcher {
-    background: #004d40; /* Islamic green background */
+    background: none;
     border: none;
     cursor: pointer;
     padding: 10px;
     border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s, transform 0.3s;
-    font-size: 18px; /* Font size for icons */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
-#themeSwitcher:hover {
-    transform: scale(1.1);
+#themeSwitcher svg {
+    width: 24px;
+    height: 24px;
+    fill: #333; /* Dark color for icons */
 }
 
-#themeSwitcher .icon {
-    font-size: 20px; /* Adjust icon size */
-    color: #fff; /* White color for icons */
-    transition: opacity 0.3s;
+#themeSwitcher.dark-mode svg#sunIcon {
+    display: none;
 }
 
-#themeSwitcher.dark-mode #sunIcon {
-    opacity: 0;
-}
-
-#themeSwitcher.light-mode #moonIcon {
-    opacity: 0;
-}
-
-/* Light Theme */
-.light-mode {
-    background-color: #f0f0f0;
-    color: #333;
-}
-
-/* Dark Theme */
-.dark-mode {
-    background-color: #333;
-    color: #f0f0f0;
+#themeSwitcher.light-mode svg#moonIcon {
+    display: none;
 }
