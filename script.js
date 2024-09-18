@@ -3,8 +3,8 @@ const baseUrl = 'https://username.github.io/NightmareShadow4Exploit/jjj/';
 
 // List of file URLs
 const fileUrls = [
-    { name: 'MOM.xlsx', url: `${baseUrl}MOM.xlsx` },
-    { name: 'PlanningVsAchievement-2024_Updated on 16 Aug 2024.xlsx', url: `${baseUrl}PlanningVsAchievement-2024_Updated on 16 Aug 2024.xlsx` }
+    { name: 'MOM.xlsx', url: `${baseUrl}files/MOM.xlsx` },
+    { name: 'PlanningVsAchievement-2024_Updated on 16 Aug 2024.xlsx', url: `${baseUrl}files/PlanningVsAchievement-2024_Updated on 16 Aug 2024.xlsx` }
 ];
 
 const fileList = document.getElementById('fileList');
