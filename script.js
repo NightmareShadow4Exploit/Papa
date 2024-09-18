@@ -1,5 +1,5 @@
 // GitHub Pages URL for the repository
-const baseUrl = 'https://username.github.io/repo-name/';
+const baseUrl = 'https://username.github.io/NigtmareShadow4Exploit/Papa';
 
 // List of file URLs
 const fileUrls = [
